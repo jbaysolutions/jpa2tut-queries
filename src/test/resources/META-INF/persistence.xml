@@ -2,9 +2,8 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
     <persistence-unit name="jpa2tut-test" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>com.jbaysolutions.blog.entity.EmployeeEntity</class>
         <class>com.jbaysolutions.blog.entity.CompanyEntity</class>
-        <class>com.jbaysolutions.blog.entity.ClientEntity</class>
+        <class>com.jbaysolutions.blog.entity.EmployeeEntity</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <property name="eclipselink.jdbc.password" value="12345"/>

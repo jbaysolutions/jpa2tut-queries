@@ -5,18 +5,10 @@
 package com.jbaysolutions.blog.entity;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Collection;
+import java.util.Date;
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -24,48 +16,45 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "employee")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "EmployeeEntity.findAll", query = "SELECT e FROM EmployeeEntity e"),
-    @NamedQuery(name = "EmployeeEntity.findByIdemployee", query = "SELECT e FROM EmployeeEntity e WHERE e.idemployee = :idemployee"),
-    @NamedQuery(name = "EmployeeEntity.findByName", query = "SELECT e FROM EmployeeEntity e WHERE e.name = :name"),
-    @NamedQuery(name = "EmployeeEntity.findByPhone", query = "SELECT e FROM EmployeeEntity e WHERE e.phone = :phone")})
 public class EmployeeEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "idemployee")
-    private Integer idemployee;
+    private Integer idclient;
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
+    @Column(name = "address")
+    private String address;
+
     @Basic(optional = false)
-    @Column(name = "phone")
-    private String phone;
-    @JoinColumn(name = "company", referencedColumnName = "idcompany")
-    @ManyToOne(optional = false)
+    @Temporal(TemporalType.DATE)
+    @Column(name = "birthday")
+    private Date birthday;
+    
+    @ManyToOne
+    @JoinColumn(name = "idcompany", referencedColumnName = "idcompany")
     private CompanyEntity company;
 
     public EmployeeEntity() {
     }
 
-    public EmployeeEntity(Integer idemployee) {
-        this.idemployee = idemployee;
+    public EmployeeEntity(Integer idclient) {
+        this.idclient = idclient;
     }
 
-    public EmployeeEntity(Integer idemployee, String name, String phone) {
-        this.idemployee = idemployee;
+    public EmployeeEntity(Integer idclient, String name) {
+        this.idclient = idclient;
         this.name = name;
-        this.phone = phone;
     }
 
-    public Integer getIdemployee() {
-        return idemployee;
+    public Integer getIdclient() {
+        return idclient;
     }
 
-    public void setIdemployee(Integer idemployee) {
-        this.idemployee = idemployee;
+    public void setIdclient(Integer idclient) {
+        this.idclient = idclient;
     }
 
     public String getName() {
@@ -76,14 +65,23 @@ public class EmployeeEntity implements Serializable {
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getAddress() {
+        return address;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    @XmlTransient
     public CompanyEntity getCompany() {
         return company;
     }
@@ -95,7 +93,7 @@ public class EmployeeEntity implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idemployee != null ? idemployee.hashCode() : 0);
+        hash += (idclient != null ? idclient.hashCode() : 0);
         return hash;
     }
 
@@ -106,7 +104,7 @@ public class EmployeeEntity implements Serializable {
             return false;
         }
         EmployeeEntity other = (EmployeeEntity) object;
-        if ((this.idemployee == null && other.idemployee != null) || (this.idemployee != null && !this.idemployee.equals(other.idemployee))) {
+        if ((this.idclient == null && other.idclient != null) || (this.idclient != null && !this.idclient.equals(other.idclient))) {
             return false;
         }
         return true;
@@ -114,7 +112,7 @@ public class EmployeeEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "syshex.tutorials.jpa2.tut3.entity.EmployeeEntity[ idemployee=" + idemployee + " ]";
+        return "syshex.tutorials.jpa2.tut3.entity.ClientEntity[ idclient=" + idclient + " ]";
     }
     
 }

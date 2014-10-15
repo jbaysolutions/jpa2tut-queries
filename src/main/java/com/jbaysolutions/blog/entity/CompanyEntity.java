@@ -6,18 +6,7 @@ package com.jbaysolutions.blog.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -30,7 +19,6 @@ public class CompanyEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "idcompany")
     private Integer idcompany;
     @Basic(optional = false)
@@ -39,21 +27,13 @@ public class CompanyEntity implements Serializable {
     @Basic(optional = false)
     @Column(name = "address")
     private String address;
+
+    @Basic(optional = false)
+    @Column(name = "created_year")
+    private int createdYear;
     
-    @JoinTable
-        (name = "company_has_client"
-            , 
-            joinColumns = { 
-                @JoinColumn(name = "company_idcompany", referencedColumnName = "idcompany")
-            }, 
-            inverseJoinColumns = { 
-                @JoinColumn(name = "client_idclient", referencedColumnName = "idclient")
-            }
-        )
-    @ManyToMany
-    private Collection<ClientEntity> clientCollection;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+
+    @OneToMany(mappedBy = "company")
     private Collection<EmployeeEntity> employeeCollection;
 
     public CompanyEntity() {
@@ -93,13 +73,12 @@ public class CompanyEntity implements Serializable {
         this.address = address;
     }
 
-    @XmlTransient
-    public Collection<ClientEntity> getClientCollection() {
-        return clientCollection;
+    public int getCreatedYear() {
+        return createdYear;
     }
 
-    public void setClientCollection(Collection<ClientEntity> clientEntityCollection) {
-        this.clientCollection = clientEntityCollection;
+    public void setCreatedYear(int createdYear) {
+        this.createdYear = createdYear;
     }
 
     @XmlTransient
@@ -107,8 +86,8 @@ public class CompanyEntity implements Serializable {
         return employeeCollection;
     }
 
-    public void setEmployeeCollection(Collection<EmployeeEntity> employeeEntityCollection) {
-        this.employeeCollection = employeeEntityCollection;
+    public void setEmployeeCollection(Collection<EmployeeEntity> employeeCollection) {
+        this.employeeCollection = employeeCollection;
     }
 
     @Override
