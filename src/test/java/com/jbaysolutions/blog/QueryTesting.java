@@ -183,4 +183,55 @@ public class QueryTesting {
             System.out.println(" -> Q1 : " + employee.getName());
         }
     }
+
+    @Test
+    public void testLike1() {
+       TypedQuery<CompanyEntity> query =
+               em.createQuery("SELECT company FROM CompanyEntity AS company " +
+                       "WHERE  company.name = 'Google' ", CompanyEntity.class);
+       for (CompanyEntity company : query.getResultList()) {
+           System.out.println(" -> Q1 : " + company.getName());
+       }
+    }
+
+    @Test
+    public void testLike2() {
+       TypedQuery<CompanyEntity> query =
+               em.createQuery("SELECT company FROM CompanyEntity AS company " +
+                       "WHERE  company.name LIKE '%oo_' ", CompanyEntity.class);
+       for (CompanyEntity company : query.getResultList()) {
+           System.out.println(" -> Q1 : " + company.getName());
+       }
+    }
+
+    @Test
+    public void testEmpty1() {
+       TypedQuery<CompanyEntity> query =
+               em.createQuery("SELECT company FROM CompanyEntity AS company " +
+                       "WHERE  company.employeeCollection IS EMPTY ", CompanyEntity.class);
+       for (CompanyEntity company : query.getResultList()) {
+           System.out.println(" -> Q1 : " + company.getName());
+       }
+    }
+
+    @Test
+    public void testEmpty2() {
+       TypedQuery<CompanyEntity> query =
+               em.createQuery("SELECT company FROM CompanyEntity AS company " +
+                       "WHERE  company.employeeCollection IS NOT EMPTY ", CompanyEntity.class);
+       for (CompanyEntity company : query.getResultList()) {
+           System.out.println(" -> Q1 : " + company.getName());
+       }
+    }
+
+    @Test
+    public void testNull1() {
+       TypedQuery<EmployeeEntity> query =
+               em.createQuery("SELECT employee FROM EmployeeEntity AS employee " +
+                       "WHERE  employee.address IS NULL ", EmployeeEntity.class);
+       for (EmployeeEntity employee : query.getResultList()) {
+           System.out.println(" -> Q1 : " + employee.getName());
+       }
+    }
+
 }
