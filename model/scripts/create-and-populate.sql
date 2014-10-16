@@ -8,7 +8,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- Schema jpa2tut-queries
 -- -----------------------------------------------------
 
-drop schema `jpa2tut-queries` ;
+DROP SCHEMA `jpa2tut-queries` ;
 
 -- -----------------------------------------------------
 -- Schema jpa2tut-queries
